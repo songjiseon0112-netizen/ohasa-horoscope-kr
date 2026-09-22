@@ -234,10 +234,12 @@
     var html = data.ranking.map(function (item) {
       var messages = item.messages.map(function (m) { return '<li>' + m + '</li>'; }).join('');
       var extra = item.ai_extra;
+      // 원본에 이미 '럭키 컬러'가 있으면 색이 두 개 나오지 않도록 AI 색상은 생략한다.
+      var showAiColor = extra && extra.lucky_color && item.lucky_label !== '럭키 컬러';
       var extraHtml = '';
-      if (extra && (extra.lucky_color || extra.condition)) {
+      if (extra && (showAiColor || extra.condition)) {
         extraHtml = '<div class="extra">' +
-          (extra.lucky_color ? (
+          (showAiColor ? (
             '<div class="extra-row"><span class="extra-tag">AI</span><span class="extra-label">럭키 컬러</span><span>' + extra.lucky_color + '</span></div>'
           ) : '') +
           (extra.condition ? (

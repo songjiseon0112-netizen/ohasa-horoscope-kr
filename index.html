@@ -93,6 +93,7 @@
   .symbol { font-size: 18px; }
   .sign-ko { font-size: 16px; font-weight: 700; }
   .sign-en { font-size: 12px; color: var(--text-dim); }
+  .sign-dates { font-size: 12px; color: var(--text-dim); }
 
   .messages { margin: 6px 0 0; padding: 0; list-style: none; }
   .messages li {
@@ -171,6 +172,21 @@
   var listEl = document.getElementById('list');
   var dateEl = document.getElementById('date-line');
 
+  var BIRTH_RANGES = {
+    '01': '3.21 ~ 4.19',
+    '02': '4.20 ~ 5.20',
+    '03': '5.21 ~ 6.21',
+    '04': '6.22 ~ 7.22',
+    '05': '7.23 ~ 8.22',
+    '06': '8.23 ~ 9.22',
+    '07': '9.23 ~ 10.23',
+    '08': '10.24 ~ 11.22',
+    '09': '11.23 ~ 12.21',
+    '10': '12.22 ~ 1.19',
+    '11': '1.20 ~ 2.18',
+    '12': '2.19 ~ 3.20'
+  };
+
   function formatDate(iso) {
     var d = new Date(iso + 'T00:00:00+09:00');
     var days = ['일', '월', '화', '수', '목', '금', '토'];
@@ -196,6 +212,7 @@
               '<span class="symbol">' + item.symbol + '</span>' +
               '<span class="sign-ko">' + item.sign_ko + '</span>' +
               '<span class="sign-en">' + item.sign_en + '</span>' +
+              '<span class="sign-dates">(' + (BIRTH_RANGES[item.sign_code] || '') + ')</span>' +
             '</div>' +
             '<ul class="messages">' + messages + '</ul>' +
             '<div class="lucky">' + item.lucky_label + ' · ' + item.lucky + '</div>' +

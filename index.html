@@ -103,45 +103,33 @@
   }
   .messages li::before { content: "· "; color: var(--accent2); }
 
-  .lucky {
-    margin-top: 8px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12.5px;
-    background: rgba(124,131,253,0.15);
-    border: 1px solid rgba(124,131,253,0.35);
-    padding: 4px 10px;
-    border-radius: 999px;
-    color: var(--accent2);
-  }
-
-  .extra {
+  .bottom {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px dashed var(--card-border);
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
   }
-  .extra-row {
+  .info-row {
     display: flex;
     align-items: baseline;
     gap: 6px;
     font-size: 12.5px;
     color: var(--text);
   }
-  .extra-tag {
+  .info-tag {
     font-size: 10px;
     font-weight: 700;
     color: #fff;
-    background: var(--accent2);
-    opacity: 0.85;
     padding: 1px 6px;
     border-radius: 999px;
     flex: 0 0 auto;
+    background: var(--accent2);
+    opacity: 0.85;
   }
-  .extra-label { color: var(--text-dim); flex: 0 0 auto; }
+  .info-tag.official { background: var(--text-dim); }
+  .info-label { color: var(--text-dim); flex: 0 0 auto; }
 
   footer {
     margin-top: 32px;
@@ -233,20 +221,19 @@
     dateEl.textContent = formatDate(data.date);
     var html = data.ranking.map(function (item) {
       var messages = item.messages.map(function (m) { return '<li>' + m + '</li>'; }).join('');
-      var extra = item.ai_extra;
+      var extra = item.ai_extra || {};
       // 원본에 이미 '럭키 컬러'가 있으면 색이 두 개 나오지 않도록 AI 색상은 생략한다.
-      var showAiColor = extra && extra.lucky_color && item.lucky_label !== '럭키 컬러';
-      var extraHtml = '';
-      if (extra && (showAiColor || extra.condition)) {
-        extraHtml = '<div class="extra">' +
-          (showAiColor ? (
-            '<div class="extra-row"><span class="extra-tag">AI</span><span class="extra-label">럭키 컬러</span><span>' + extra.lucky_color + '</span></div>'
-          ) : '') +
-          (extra.condition ? (
-            '<div class="extra-row"><span class="extra-tag">AI</span><span class="extra-label">컨디션 관리</span><span>' + extra.condition + '</span></div>'
-          ) : '') +
-        '</div>';
-      }
+      var showAiColor = extra.lucky_color && item.lucky_label !== '럭키 컬러';
+
+      var bottomRows =
+        '<div class="info-row"><span class="info-tag official">공식</span><span class="info-label">' + item.lucky_label + '</span><span>' + item.lucky + '</span></div>' +
+        (showAiColor ? (
+          '<div class="info-row"><span class="info-tag">AI</span><span class="info-label">럭키 컬러</span><span>' + extra.lucky_color + '</span></div>'
+        ) : '') +
+        (extra.condition ? (
+          '<div class="info-row"><span class="info-tag">AI</span><span class="info-label">컨디션 관리</span><span>' + extra.condition + '</span></div>'
+        ) : '');
+
       return (
         '<div class="card ' + rankClass(item.rank) + '">' +
           '<div class="rank">' + item.rank + '</div>' +
@@ -258,8 +245,7 @@
               '<span class="sign-dates">(' + (BIRTH_RANGES[item.sign_code] || '') + ')</span>' +
             '</div>' +
             '<ul class="messages">' + messages + '</ul>' +
-            '<div class="lucky">' + item.lucky_label + ' · ' + item.lucky + '</div>' +
-            extraHtml +
+            '<div class="bottom">' + bottomRows + '</div>' +
           '</div>' +
         '</div>'
       );

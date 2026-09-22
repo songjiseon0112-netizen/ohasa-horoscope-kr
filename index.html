@@ -118,18 +118,7 @@
     font-size: 12.5px;
     color: var(--text);
   }
-  .info-tag {
-    font-size: 10px;
-    font-weight: 700;
-    color: #fff;
-    padding: 1px 6px;
-    border-radius: 999px;
-    flex: 0 0 auto;
-    background: var(--accent2);
-    opacity: 0.85;
-  }
-  .info-tag.official { background: var(--text-dim); }
-  .info-label { color: var(--text-dim); flex: 0 0 auto; }
+  .info-label { color: var(--text-dim); flex: 0 0 auto; min-width: 64px; }
 
   footer {
     margin-top: 32px;
@@ -171,8 +160,8 @@
         일본 ABC 아침 정보 프로그램 「おはよう朝日です」의 별자리 운세 코너 '오하아사(おは朝)'를
         매일 한국어로 번역해 소개하는 팬 제작 페이지입니다. 원본은
         <a href="https://www.asahi.co.jp/ohaasa/week/horoscope/" target="_blank" rel="noopener">공식 사이트</a>에서 확인할 수 있습니다.<br>
-        <span class="extra-tag" style="display:inline-block;margin-top:4px;">AI</span>
-        표시가 붙은 럭키 컬러·컨디션 관리 팁은 원본 방송에 없는, 매일 AI가 새로 만들어 더한 보너스 콘텐츠입니다.
+        각 별자리의 럭키 아이템·컬러·푸드 중 방송에서 실제로 발표되는 건 매일 하나뿐이며,
+        나머지 두 항목과 컨디션 관리 팁은 매일 AI가 자연스럽게 채워 넣는 보너스 콘텐츠입니다.
       </p>
     </header>
 
@@ -221,18 +210,12 @@
     dateEl.textContent = formatDate(data.date);
     var html = data.ranking.map(function (item) {
       var messages = item.messages.map(function (m) { return '<li>' + m + '</li>'; }).join('');
-      var extra = item.ai_extra || {};
-      // 원본에 이미 '럭키 컬러'가 있으면 색이 두 개 나오지 않도록 AI 색상은 생략한다.
-      var showAiColor = extra.lucky_color && item.lucky_label !== '럭키 컬러';
 
       var bottomRows =
-        '<div class="info-row"><span class="info-tag official">공식</span><span class="info-label">' + item.lucky_label + '</span><span>' + item.lucky + '</span></div>' +
-        (showAiColor ? (
-          '<div class="info-row"><span class="info-tag">AI</span><span class="info-label">럭키 컬러</span><span>' + extra.lucky_color + '</span></div>'
-        ) : '') +
-        (extra.condition ? (
-          '<div class="info-row"><span class="info-tag">AI</span><span class="info-label">컨디션 관리</span><span>' + extra.condition + '</span></div>'
-        ) : '');
+        '<div class="info-row"><span class="info-label">럭키 아이템</span><span>' + item.lucky_item + '</span></div>' +
+        '<div class="info-row"><span class="info-label">럭키 컬러</span><span>' + item.lucky_color + '</span></div>' +
+        '<div class="info-row"><span class="info-label">럭키 푸드</span><span>' + item.lucky_food + '</span></div>' +
+        '<div class="info-row"><span class="info-label">컨디션 관리</span><span>' + item.condition + '</span></div>';
 
       return (
         '<div class="card ' + rankClass(item.rank) + '">' +

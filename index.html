@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>오하아사 별자리 운세 (한국어판)</title>
+<meta name="description" content="일본 ABC 아침 프로그램 「おはよう朝日です」의 별자리 운세 랭킹 '오하아사(おは朝)'를 매일 한국어로 번역해서 보여드립니다.">
+<style>
+  :root {
+    --bg: #0f1024;
+    --bg2: #1a1b3a;
+    --card: #1e1f42;
+    --card-border: #33356a;
+    --text: #f2f1ff;
+    --text-dim: #b3b2d9;
+    --accent: #ffd166;
+    --accent2: #7c83fd;
+    --gold: #ffd166;
+    --silver: #d9d9e8;
+    --bronze: #e0a878;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% -10%, var(--bg2), var(--bg) 60%);
+    color: var(--text);
+    font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 28px; }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent2);
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 28px;
+    margin: 6px 0 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .date {
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+  .source-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .source-note a { color: var(--accent2); }
+
+  #list { display: flex; flex-direction: column; gap: 10px; }
+
+  .card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .card.top1 { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+  .card.top2 { border-color: var(--silver); }
+  .card.top3 { border-color: var(--bronze); }
+
+  .rank {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    background: var(--bg2);
+    color: var(--text-dim);
+  }
+  .top1 .rank { background: var(--gold); color: #2a1e00; }
+  .top2 .rank { background: var(--silver); color: #2a1e00; }
+  .top3 .rank { background: var(--bronze); color: #2a1400; }
+
+  .body { flex: 1 1 auto; min-width: 0; }
+  .sign-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .symbol { font-size: 18px; }
+  .sign-ko { font-size: 16px; font-weight: 700; }
+  .sign-en { font-size: 12px; color: var(--text-dim); }
+
+  .messages { margin: 6px 0 0; padding: 0; list-style: none; }
+  .messages li {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .messages li::before { content: "· "; color: var(--accent2); }
+
+  .lucky {
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    background: rgba(124,131,253,0.15);
+    border: 1px solid rgba(124,131,253,0.35);
+    padding: 4px 10px;
+    border-radius: 999px;
+    color: var(--accent2);
+  }
+
+  footer {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  footer a { color: var(--text-dim); }
+
+  .state {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f6fb;
+      --bg2: #ececf9;
+      --card: #ffffff;
+      --card-border: #e3e3f2;
+      --text: #211f3d;
+      --text-dim: #6d6b91;
+      --accent: #c98a00;
+      --accent2: #5b52e8;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">おは朝 星占いランキング · 한국어판</div>
+      <h1>오하아사 별자리 운세</h1>
+      <div class="date" id="date-line">불러오는 중…</div>
+      <p class="source-note">
+        일본 ABC 아침 정보 프로그램 「おはよう朝日です」의 별자리 운세 코너 '오하아사(おは朝)'를
+        매일 한국어로 번역해 소개하는 팬 제작 페이지입니다. 원본은
+        <a href="https://www.asahi.co.jp/ohaasa/week/horoscope/" target="_blank" rel="noopener">공식 사이트</a>에서 확인할 수 있습니다.
+      </p>
+    </header>
+
+    <div id="list"><div class="state">오늘의 운세를 불러오는 중…</div></div>
+
+    <footer>
+      데이터 출처: 朝日放送テレビ「おはよう朝日です」 공식 사이트 (비공식 번역)<br>
+      매일 자동으로 번역·갱신됩니다.
+    </footer>
+  </div>
+
+<script>
+(function () {
+  var listEl = document.getElementById('list');
+  var dateEl = document.getElementById('date-line');
+
+  function formatDate(iso) {
+    var d = new Date(iso + 'T00:00:00+09:00');
+    var days = ['일', '월', '화', '수', '목', '금', '토'];
+    return d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + days[d.getDay()] + ') 운세';
+  }
+
+  function rankClass(rank) {
+    if (rank === 1) return 'top1';
+    if (rank === 2) return 'top2';
+    if (rank === 3) return 'top3';
+    return '';
+  }
+
+  function render(data) {
+    dateEl.textContent = formatDate(data.date);
+    var html = data.ranking.map(function (item) {
+      var messages = item.messages.map(function (m) { return '<li>' + m + '</li>'; }).join('');
+      return (
+        '<div class="card ' + rankClass(item.rank) + '">' +
+          '<div class="rank">' + item.rank + '</div>' +
+          '<div class="body">' +
+            '<div class="sign-row">' +
+              '<span class="symbol">' + item.symbol + '</span>' +
+              '<span class="sign-ko">' + item.sign_ko + '</span>' +
+              '<span class="sign-en">' + item.sign_en + '</span>' +
+            '</div>' +
+            '<ul class="messages">' + messages + '</ul>' +
+            '<div class="lucky">' + item.lucky_label + ' · ' + item.lucky + '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+    listEl.innerHTML = html;
+  }
+
+  fetch('data/horoscope.json', { cache: 'no-store' })
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(render)
+    .catch(function (err) {
+      listEl.innerHTML = '<div class="state">운세 데이터를 불러오지 못했습니다. (' + err.message + ')</div>';
+      dateEl.textContent = '오류';
+    });
+})();
+</script>
+</body>
+</html>
